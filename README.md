@@ -5,3 +5,5 @@
 * Hide picture or text
 * Data will be compressed before it will be hide
 * In case of hiding picture, host picture has to be larger than the data to be hide
+
+### This version only works on png as out file
