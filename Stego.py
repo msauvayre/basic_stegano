@@ -160,6 +160,8 @@ def parse_args():
 if __name__ == "__main__":
     flag_source_type: str = "text"
     args = parse_args()
+    pathlibed_host_filename = Path(args.host_file)
+    fichier_de_sortie: Path = pathlibed_host_filename.parent / f"{pathlibed_host_filename.stem}_stego.png"
     secret = args.data
     steg = LSBSteganography(lsb_per_channel=1)
 
@@ -167,15 +169,15 @@ if __name__ == "__main__":
         if Path(args.data).is_file():
             flag_source_type = "image"
             secret = Image.open(args.data)
+
         print(f"Hide mode on {args.host_file}")
 
         steg.hide(
             cover_path=args.host_file,
-            output_path="stego.png",
+            output_path=str(fichier_de_sortie),
             payload=secret,
             payload_type=flag_source_type
         )
-        secret = Image.open("stego.png")
     elif args.extract:
         print(f"Extract mode on {args.host_file} in progress ...")
         result = steg.extract(args.host_file)
